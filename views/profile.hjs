@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ header }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Profile after POST method</h1>
+    <h3>Welcome, {{ username }}</h3>
+
+  </body>
+</html>
