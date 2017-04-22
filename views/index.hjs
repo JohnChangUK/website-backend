@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ header }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>{{ header }}</h1>
+    <p>Welcome to {{ header }}. Hello {{ visitor }} </p>
+  </body>
+</html>
