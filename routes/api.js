@@ -33,7 +33,6 @@ router.post('/:resource', function(req, res, next) {
 
 });
 
-
 router.get('/:resource', function(req, res, next) {
 
     var resource = req.params.resource;
@@ -52,6 +51,45 @@ router.get('/:resource', function(req, res, next) {
             res.json({
                 confirmation: 'success',
                 results: profiles
+            });
+        });
+
+        return;
+    }
+
+    res.json({
+        confirmation: 'fail',
+        message: 'Resource ' + resource + ' not supported'
+    });
+});
+
+router.get('/:resource/:id', function(req, res, next) {
+    var resource = req.params.resource;
+    var id = req.params.id;
+
+    if (resource == 'profile') { // fetch a specific profile
+        Profile.findById(id, function(err, profile) {
+            if (err) {
+                res.json({
+                    confirmation: 'fail',
+                    message: 'Profile not found'
+                });
+
+                return;
+            }
+
+            if (profile == null) {
+                res.json({
+                    confirmation: 'fail',
+                    message: 'Profile not found'
+                });
+
+                return;
+            }
+
+            res.json({
+                confirmation: 'success',
+                result: profile
             });
         });
 
