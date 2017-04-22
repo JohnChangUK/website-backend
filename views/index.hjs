@@ -12,5 +12,12 @@
         <input type="text" name="password" placeholder="Password"/><br/>
         <input type="submit" name="Submit" /><br/>
     </form>
+
+    <h1>Submit Comment</h1>
+    <form action="/api/comment", method="POST">
+        <input type="text" name="profile" placeholder="Profile ID"/><br/>
+        <input type="text" name="text" placeholder="Comment"/><br/>
+        <input type="submit" name="Submit" /><br/>
+    </form>
   </body>
 </html>

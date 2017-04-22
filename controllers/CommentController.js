@@ -1,4 +1,4 @@
-var Profile = require('../models/Profile');
+var Comment = require('../models/Comment');
 var Promise = require('bluebird');
 
 module.exports = {
@@ -6,17 +6,16 @@ module.exports = {
     get: function(params) {
         
         return new Promise(function(resolve, reject) {
-            Profile.find(params, function(err, profiles) {
+            Comment.find(params, function(err, comments) {
                 if (err) {
                     reject(err);
                     return;
                 }
-
-                var results = [];
-                profiles.forEach(function(profile, i) {
-                    results.push(profile.summary());
-                });
-
+    
+            var results = [];
+            comments.forEach(function(comment, i) {
+                results.push(comment.summary());
+            });
                 resolve(results);
             });
         });
@@ -24,31 +23,31 @@ module.exports = {
 
     getById: function(id) {
         return new Promise(function(resolve, reject) {
-            Profile.findById(id, function(err, profile) {
+            Comment.findById(id, function(err, comment) {
                 if (err) {
-                    reject(new Error('Profile not Found!'));
+                    reject(new Error('Comment not Found!'));
                     return;
                 }
 
-                if (profile == null) {
-                    reject(new Error('Profile not found'));
+                if (comment == null) {
+                    reject(new Error('Comment not found'));
                     return;
                 }
 
-                resolve(profile.summary());
+                resolve(comment.summary());
             });
         });
     },
 
     post: function(body) {
         return new Promise(function(resolve, reject) {
-            Profile.create(body, function(err, profile) {
+            Comment.create(body, function(err, comment) {
                 if (err) {
                     reject(err);
                     return;
                 }
 
-                resolve(profile.summary());
+                resolve(comment.summary());
             });
         });
     }
