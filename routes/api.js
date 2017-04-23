@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-// var Profile = require('../models/Profile');
 var controllers = require('../controllers');
 
 router.post('/:resource', function(req, res, next) {
@@ -43,7 +42,7 @@ router.get('/:resource', function(req, res, next) {
     }
 
     controller
-    .get(null)
+    .get(req.query)
     .then(function(results) {
         res.json({
             confirmation: 'success',
