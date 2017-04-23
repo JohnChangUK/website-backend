@@ -12,7 +12,7 @@ router.get('/currentuser', function(req, res, next) {
         return;
     }
 
-    if (req.session == null) {
+    if (req.session.user == null) {
         res.json({
             confirmation: 'success',
             user: null
@@ -46,7 +46,7 @@ router.post('/login', function(req, res, next) {
     var formData = req.body; // email, password
 
     controllers.profile
-    .get({email: formData.email}, true)
+    .get({email: formData.email}, true) // only checks if the email EXISTS
     .then(function(profiles) {
         if (profiles.length == 0) {
             res.json({
@@ -57,10 +57,10 @@ router.post('/login', function(req, res, next) {
         } 
 
         var profile = profiles[0];
-
+    // Checks if the password matches the password from the Model
         var passwordCorrect = bcrypt.compareSync(formData.password, profile.password);
         if (passwordCorrect == false) {
-            req.session.reset();
+            req.session.reset(); // When wrong password is typed, session is RESET to null
             res.json({
                 confirmation: 'fail',
                 message: 'Wrong Password'
@@ -68,7 +68,7 @@ router.post('/login', function(req, res, next) {
             return;
         }
 
-        req.session.user = profile._id.toString(); // Attach session
+        req.session.user = profile._id.toString(); // Attach session before Login
         res.redirect('/profile');
     })
     .catch(function(err) {

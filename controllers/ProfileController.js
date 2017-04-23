@@ -5,10 +5,10 @@ var bcrypt = require('bcryptjs');
 module.exports = {
 
     get: function(params, isRaw) {
-        
+// when isRaw is set to true, we return the raw profiles from mongo
         return new Promise(function(resolve, reject) {
             if (isRaw == null)
-                isRaw = false;
+                isRaw = false; // default is false
 
             Profile.find(params, function(err, profiles) {
                 if (err) {
@@ -17,7 +17,7 @@ module.exports = {
                 }
 
                 if (isRaw == true) {
-                    resolve(profiles);
+                    resolve(profiles); // resolve the promise with the raw profiles from mongo
                     return;
                 }
 
