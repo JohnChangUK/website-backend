@@ -22,11 +22,24 @@ router.get('/profile', function(req, res, next) {
         res.render('profile', null);
         return;
     }
-    
+    var user = null;
+
     controllers.profile
     .getById(decode.id)
     .then(function(profile) {
-        res.render('profile', profile);
+        user = profile;
+    // Fetch profile comments
+    // .get() returns a promise, so call .then() after
+        return controllers.comment.get({profile: profile.id });
+    })
+    .then(function(comments) {
+        console.log('COMMENTS: '+ JSON.stringify(comments));
+        var data = {
+            profile: user,
+            comments: comments
+        };
+        
+        res.render('profile', data); 
     })
     .catch(function(err) {
         res.render('profile', null);

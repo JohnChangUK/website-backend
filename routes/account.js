@@ -105,6 +105,7 @@ router.post('/login', function(req, res, next) {
         }
 
         // req.session.user = profile._id.toString(); // Attach session before Login
+        // When we create the token, we gave it an id parameter
         req.session.token = jwt.sign({id: profile._id.toString()}, process.env.TOKEN_SECRET, {expiresIn:4000});
         res.redirect('/profile');
     })
@@ -115,6 +116,50 @@ router.post('/login', function(req, res, next) {
         });
     });
 
+});
+
+router.post('/comment', function(req, res, next) {
+
+    if (req.session == null) {
+        res.json({
+            confirmation: 'fail',
+            message: 'not logged in'
+        });
+        return;
+    }
+
+    if (req.session.token == null) {
+        res.json({
+            confirmation: 'fail',
+            message: 'not logged in'
+        });
+        return;
+    }
+
+    var token = req.session.token;
+    jwt.verify(token, process.env.TOKEN_SECRET, function(err, decode) {
+        if (err) {
+            res.json({
+                confirmation: 'fail',
+                message: 'Invalid Token'
+            });
+            return;
+        }
+
+        // Success Area!
+        var commentData = req.body;
+        // we are assigning the same id parameter when jwt.sign({})
+        commentData['profile'] = decode.id;
+
+        controllers.comment 
+        .post(commentData)
+        .then(function(result) {
+            res.redirect('/profile');
+        })
+        .catch(function(err) {
+            
+        });
+    });
 });
 
 module.exports = router;
