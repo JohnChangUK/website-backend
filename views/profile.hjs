@@ -5,8 +5,8 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1>Profile after POST method</h1>
-    <h3>Welcome, {{ username }}</h3>
+    <h1>Profile</h1>
+    <h3>Welcome, {{ username }} </h3>
 
   </body>
 </html>

@@ -30,8 +30,9 @@ router.get('/currentuser', function(req, res, next) {
     }
     // '123' is the secret on the server, if you change it
     // it will invalidate everyone's token, for security purposes
-    jwt.verify(req.session.token, '123', function(err, decode) {
+    jwt.verify(req.session.token, process.env.TOKEN_SECRET, function(err, decode) {
         if (err) {
+            req.session.reset();
             res.json({
                 confirmation: 'fail',
                 message: 'Invalid Token'
@@ -66,7 +67,7 @@ router.post('/register', function(req, res, next) {
     .then(function(profile) {
 // When the user signs up, they log in too. Therefore we want 
 // to set the session and token  when the user signs up as well 
-        req.session.token = jwt.sign({id: profile.id}, '123', {expiresIn:4000});
+        req.session.token = jwt.sign({id: profile.id}, process.env.TOKEN_SECRET, {expiresIn:4000});
         res.redirect('/profile');
         return;
     })
@@ -104,7 +105,7 @@ router.post('/login', function(req, res, next) {
         }
 
         // req.session.user = profile._id.toString(); // Attach session before Login
-        req.session.token = jwt.sign({id: profile._id.toString()}, '123', {expiresIn:4000});
+        req.session.token = jwt.sign({id: profile._id.toString()}, process.env.TOKEN_SECRET, {expiresIn:4000});
         res.redirect('/profile');
     })
     .catch(function(err) {
