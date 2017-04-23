@@ -7,6 +7,8 @@
   <body>
     <h1>Profile</h1>
     <h3>Welcome, {{ profile.username }} </h3>
+    <a href="/account/logout">Logout</a>
+    <br /><br />
     <form action="account/comment" method="POST">
         <textarea name="text" placeholder="Comment"></textarea>
         <br />
@@ -15,10 +17,9 @@
 
     <h3>Your Comments</h3>
     <ol>
-        <li>Comment 1</li>
-        <li>Comment 2</li>
-        <li>Comment 3</li>
-        <li>Comment 4</li>
+        {{#comments}}
+            <li>{{text}} | {{ profile }}</li>
+        {{/comments}}
     </ol>
 
   </body>

@@ -6,10 +6,11 @@ var jwt = require('jsonwebtoken');
 
 router.get('/logout', function(req, res, next) {
     req.session.reset();
-    res.json({
-        confirmation: 'success',
-        user: null
-    });
+    res.redirect('/');
+    // res.json({
+    //     confirmation: 'success',
+    //     user: null
+    // });
 });
 
 router.get('/currentuser', function(req, res, next) {
