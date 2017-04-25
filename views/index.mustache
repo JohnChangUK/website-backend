@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html>
+<html class="no-js" lang="">
   <head>
+   <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="/stylesheets/normalize.css">
+        <script src="javascripts/vendor/modernizr-2.8.3.min.js"></script>
     <title>{{ header }}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
+
     <h1>Sign Up</h1>
     <form action="/account/register", method="POST">
         <input type="text" name="email" placeholder="Email"/><br/>
@@ -19,6 +30,11 @@
         <input type="text" name="password" placeholder="Password"/><br/>
         <input type="submit" name="Login" /><br/>
     </form>
+
+    <p> Digital Affect </p>
+      <canvas id="lineChart" height="400" width="400"></canvas>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js"></script>
+        <script src="javascripts/main.js"></script>
 
   </body>
 </html>
