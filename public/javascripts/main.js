@@ -8,6 +8,18 @@ var jsonData = {
         
         var neg = jsonData.negative.length;
 
+    $.ajax({
+        url: 'data.json',
+        dataType: 'json',
+        type: 'get',
+        cache: false,
+        success: function(data) {
+            $(data).each(function(index, value) {
+                console.log(value);
+            });
+        }
+    });
+
 $(document).ready(function() {
 
     var ctx1 = $("#pie-chartcanvas-1");
