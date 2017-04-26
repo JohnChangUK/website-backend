@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var controllers = require('../controllers');
+var superagent = require('superagent');
 
 router.get('/', function(req, res, next) {
   res.render('index', { header: 'Practice', visitor: 'John' });
@@ -46,5 +47,26 @@ router.get('/profile', function(req, res, next) {
     });
   });
 });
+
+    // var url = 'http://content.guardianapis.com/search?api-key=test';
+
+    // superagent
+    // .get(url)
+    // .set('Accept', 'application/json')
+    // .end(function(err, response) {
+    //     if (err) {
+    //         res.json({
+    //             confirm: 'Failure',
+    //             message: err
+    //         });
+    //         return;   
+    //     }
+        
+
+    //     res.json({
+    //         confirm: 'Success',
+    //         results: data
+    //     });
+    // });
 
 module.exports = router;

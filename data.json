@@ -1,8 +1,6 @@
 {
-    "positive": {
-        "positive_votes": [1,1,1,1,1]
-    },
-    "negative": {
-        "negative_votes": [-1, -1, -1]
+
+    "positive": [1,1,1,1,1],
+    "negative": [-1, -1, -1]
+
     }
-}

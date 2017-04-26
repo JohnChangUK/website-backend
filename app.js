@@ -23,6 +23,9 @@ var account = require('./routes/account');
 
 var app = express();
 
+app.locals.posneg = "a number";
+app.locals.data = require('./data.json');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('mustache', require('hogan-middleware').__express);

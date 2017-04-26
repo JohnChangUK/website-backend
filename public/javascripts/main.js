@@ -1,14 +1,24 @@
+var jsonData = {
+
+        "positive": [1,1,1,1,1],
+        "negative": [-1, -1, -1]
+
+        };
+        var pos = jsonData.positive.length;
+        
+        var neg = jsonData.negative.length;
+
 $(document).ready(function() {
 
     var ctx1 = $("#pie-chartcanvas-1");
     var ctx2 = $("#pie-chartcanvas-2"); 
 
     var data1 = {
-        labels: ["Positive", "Negative", "match3", "match4", "match5"],
+        labels: ["Positive", "Negative"],
         datasets: [
             {
                 label: "Positive score",
-                data: [1,10, 50, 25, 70, 40],
+                data: [pos, neg],
                 backgroundColor: [
                     "#DEB887",
                     "#A9A9A9",
@@ -28,31 +38,7 @@ $(document).ready(function() {
         ]
     };  
 
-   var data2 = {
-        labels: ["Positive", "Negative", "match3", "match4", "match5"],
-        datasets: [
-            {
-                label: "Negative score",
-                data: [-1, 35, 40, 60, 50],
-                backgroundColor: [
-                    "#DEB887",
-                    "#A9A9A9",
-                    "#DC143C",
-                    "#F4A460",
-                    "#2E8B57"
-                ],
-                borderColor: [
-                    "#CDA776",
-                    "#989898",
-                    "#CB252B",
-                    "#E39371",
-                    "#1D7A46"
-                ],
-                borderWidth: [1, 1, 1, 1, 1]
-            }
-        ]
-    };  
-
+   
     var options = {
         title: {
             display: true,
@@ -71,12 +57,6 @@ $(document).ready(function() {
         type: "pie",
         data: data1,
         options: options
-    });
-
-    var chart2 = new Chart(ctx2, {
-    type: "pie",
-    data: data2,
-    options: options
     });
 });
 
@@ -104,17 +84,30 @@ let lineChart = new Chart(CHART, {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [100, 20, 60, 20, 80, 55, 90],
+            data: [100, 20],
             spanGaps: false,
         }
     ]
     }
 });
 
+$.ajax({
+   url: 'http://localhost:3000/data.json',
+   success: function (response) {
+        alert(response); //showing response is working
+        var datachart = JSON.parse(response);
+        var ctx2 = document.getElementById("chart-area2").getContext("2d");
+        window.myPie = new Chart(ctx2).Pie(datachart);
+   }
+});
+    
+var url = "http://content.guardianapis.com/search?api-key=test";
+
 $("button").click(function() {
-    $.getJSON("data.json", function(obj) {
-        $.each(obj, function(key, value) {
-            $("ul").append("<li>"+value+"</li>");
-        });
+  $.getJSON('http://localhost:3000/data.json', function(obj) {
+    $.each(obj, function(key, value) {
+        $('ul').append("<li>" + value + "</li>");
+    });
     });
 });
+
