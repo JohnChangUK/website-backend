@@ -1,26 +1,66 @@
+$(document).ready(function() {
+    var chart1;
 var jsonData = {
 
-        "positive": [1,1,1,1,1],
-        "negative": [-1, -1, -1]
+        "positive": ["p", "p", "p", "p", "p", "p", "p"],
+        "negative": ["n", "n"]
 
         };
         var pos = jsonData.positive.length;
         
         var neg = jsonData.negative.length;
 
-    $.ajax({
-        url: 'data.json',
+var url = "http://content.guardianapis.com/search?api-key=test";
+
+
+
+    document.getElementById("clickMe").onclick = function draw() {
+    //     $.ajax({
+    //     url: url,
+    //     dataType: 'json',
+    //     type: 'get',
+    //     cache: false,
+    //     success: function(data) {
+    //         $(data).each(function(index, value) {
+    //             console.log(value.response.pages);
+    //             // console.log(pos);
+    //         });
+    //     }
+    // });
+    $.getJSON(url, function(object) {
+        data1.datasets[0].data[0] = object.response.total;
+        // data2 = data1.datasets[0].data;
+        data1.datasets[0].data[1] = object.response.pages;
+        // data3 = data1.datasets[0].data = object.response.pages;
+        // data1.datasets[0].labels = object.labels;
+    chart1.update();
+        console.log(data1.datasets[0].data[0], data1.datasets[0].data[1]);
+        // document.getElementById("random").innerHTML = data2;
+
+    });
+    };
+
+
+       $.ajax({
+        url: url,
         dataType: 'json',
         type: 'get',
         cache: false,
         success: function(data) {
             $(data).each(function(index, value) {
-                console.log(value);
+                console.log(value.response);
+                pos = value.response;
             });
+            return pos;
         }
     });
-
-$(document).ready(function() {
+// $("button").click(function() {
+//   $.getJSON('http://localhost:3000/data.json', function(obj) {
+//     $.each(obj, function(key, value) {
+//         $('ul').append("<li>" + value + "</li>");
+//     });
+//     });
+// });
 
     var ctx1 = $("#pie-chartcanvas-1");
     var ctx2 = $("#pie-chartcanvas-2"); 
@@ -29,7 +69,7 @@ $(document).ready(function() {
         labels: ["Positive", "Negative"],
         datasets: [
             {
-                label: "Positive score",
+                label: "Positive and Negative",
                 data: [pos, neg],
                 backgroundColor: [
                     "#DEB887",
@@ -65,61 +105,53 @@ $(document).ready(function() {
         }
     };
 
-    var chart1 = new Chart(ctx1, {
+    chart1 = new Chart(ctx1, {
         type: "pie",
         data: data1,
         options: options
     });
 });
 
-const CHART = document.getElementById("lineChart");
-let lineChart = new Chart(CHART, {
-    type: 'line',
-    data: {
-    labels: ["Positive", "Negative"],
-    datasets: [
-        {
-            label: "My Second First dataset",
-            fill: true,
-            backgroundColor: "rgba(75,75,192,0.4)",
-            borderColor: "rgba(75,72,192,1)",
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: "rgba(75,72,192,1)",
-            pointBackgroundColor: "#fff",
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(75,72,192,1)",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
-            data: [100, 20],
-            spanGaps: false,
-        }
-    ]
-    }
-});
+// const CHART = document.getElementById("lineChart");
+// let lineChart = new Chart(CHART, {
+//     type: 'line',
+//     data: {
+//     labels: ["Positive", "Negative"],
+//     datasets: [
+//         {
+//             label: "My Second First dataset",
+//             fill: true,
+//             backgroundColor: "rgba(75,75,192,0.4)",
+//             borderColor: "rgba(75,72,192,1)",
+//             borderCapStyle: 'butt',
+//             borderDash: [],
+//             borderDashOffset: 0.0,
+//             borderJoinStyle: 'miter',
+//             pointBorderColor: "rgba(75,72,192,1)",
+//             pointBackgroundColor: "#fff",
+//             pointBorderWidth: 1,
+//             pointHoverRadius: 5,
+//             pointHoverBackgroundColor: "rgba(75,72,192,1)",
+//             pointHoverBorderColor: "rgba(220,220,220,1)",
+//             pointHoverBorderWidth: 2,
+//             pointRadius: 1,
+//             pointHitRadius: 10,
+//             data: [100, 20],
+//             spanGaps: false,
+//         }
+//     ]
+//     }
+// });
 
-$.ajax({
-   url: 'http://localhost:3000/data.json',
-   success: function (response) {
-        alert(response); //showing response is working
-        var datachart = JSON.parse(response);
-        var ctx2 = document.getElementById("chart-area2").getContext("2d");
-        window.myPie = new Chart(ctx2).Pie(datachart);
-   }
-});
-    
-var url = "http://content.guardianapis.com/search?api-key=test";
+// $.ajax({
+//    url: 'http://localhost:3000/data.json',
+//    success: function (response) {
+//         alert(response); //showing response is working
+//         var datachart = JSON.parse(response);
+//         var ctx2 = document.getElementById("chart-area2").getContext("2d");
+//         window.myPie = new Chart(ctx2).Pie(datachart);
+//    }
+// });
 
-$("button").click(function() {
-  $.getJSON('http://localhost:3000/data.json', function(obj) {
-    $.each(obj, function(key, value) {
-        $('ul').append("<li>" + value + "</li>");
-    });
-    });
-});
+
 
