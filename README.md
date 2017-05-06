@@ -1,4 +1,4 @@
-## A Website with signup functionality,RESTful API architecture, Routing, Sessions, Web Tokens
+## A Website with Sign Up functionality, RESTful API architecture, Routing, Sessions, Web Tokens
 
 #### Created an API which manges CRUD (Create, Read, Update Delete) operations on User Profiles
 #### Implemented Promises to avoid large, nested callbacks (Callback Hell, Triangle of Death!)
